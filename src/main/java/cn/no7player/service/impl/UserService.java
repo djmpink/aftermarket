@@ -1,6 +1,9 @@
 package cn.no7player.service.impl;
 
+import cn.no7player.mapper.UserMapper;
+import cn.no7player.model.User;
 import cn.no7player.service.IUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,8 +11,12 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService implements IUserService {
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public boolean login(String userName, String password) {
-        return true;
+        User user = userMapper.findUserInfo(userName);
+        return user != null && user.getPassword().equals(password);
     }
 }

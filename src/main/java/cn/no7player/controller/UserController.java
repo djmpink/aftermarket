@@ -1,5 +1,8 @@
 package cn.no7player.controller;
 
+import cn.no7player.common.ACK;
+import cn.no7player.common.BaseController;
+import cn.no7player.common.bean.Result;
 import cn.no7player.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,15 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value="user")
-public class UserController {
+public class UserController extends BaseController{
     @Autowired
     private IUserService userService;
 
     @RequestMapping(value = "login")
     @ResponseBody
-    public boolean login(@RequestParam String userName,@RequestParam String password) {
+    public Result login(@RequestParam String userName, @RequestParam String password) {
         System.out.println("userName:"+userName);
-        Boolean result = userService.login(userName,password);
-        return result;
+        Boolean flag = userService.login(userName,password);
+        if (flag){
+            return resultOK(flag);
+        }else {
+            return resultError(ACK.USER_NOT_AUTH,"用户不存在或密码错误");
+        }
     }
 }
