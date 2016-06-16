@@ -14,42 +14,27 @@ $("#send_coupons_btn").click(function () {
     }
 });
 
-////购买
-//$("#btn_confirm_purchase").click(function () {
-//    var url = 'purchaseFund.action';
-//    //获取表单值，并以json的数据形式保存到params中
-//
-//    var params = {
-//
-//        fundCode: $("#code").val(),
-//        fundName: $("#name").val(),
-//        purchaseCredit: $("#purchaseCredit").val(),
-//        purchaseShare: $("#purchaseShare").val(),
-//        purchaseNetWorth: $("#purchaseNetWorth").val(),
-//        purchaseDate: $("#purchaseDate").val(),
-//        saleRate:$("#saleRate").val()
-//
-//    };
-//    var jsData = JSON.stringify(params);
-//    //使用$.post方式
-//    $.post(
-//        url,        //服务器要接受的url
-//        {"data":jsData},     //传递的参数
-//        function (json) { //服务器返回后执行的函数 参数 data保存的就是服务器发送到客户端的数据
-//            if(!(typeof json == 'object')){
-//                alert(0);
-//            }
-//            switch (json.ACK) {
-//                case 1 :
-//                    alert("卖出成功");
-//                    window.location.reload();
-//                    break;
-//                case -1:
-//                    //$('#span1').html("用户" + params.nickname + "不存在！");
-//                    alert("购买不成功");
-//                    break;
-//            }
-//        },
-//        'json'  //数据传递的类型  json
-//    );
-//});
+//购买
+$("#confirm_btn").click(function () {
+    var url = Global_Sever_Url + "coupons/addCouponsBind";//请求地址
+    //获取表单值，并以json的数据形式保存到params中
+
+    var params = {
+        activityCode: $("#verification").val(),
+        type: $("#type").val(),
+        userName: $("#userName").val(),
+        phone: $("#phone").val(),
+        startTime: $("#startTime").val(),
+        endTime: $("#endTime").val(),
+        purchase:$("#purchase").val()
+
+    };
+    //var jsData = JSON.stringify(params);
+    //使用$.post方式
+    var jsonData = commonAjax(url, false, params, null);
+    if (jsonData.code == SUCCESS_CODE) {
+        alert("SUCCESS_CODE");
+    } else {
+        alert("获取失败");
+    }
+});

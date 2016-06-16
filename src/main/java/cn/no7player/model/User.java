@@ -9,6 +9,7 @@ public class User {
     private String userName;
     private String password;
     private String createTime;
+    private Integer type;
 
     public Integer getId() {
         return id;
@@ -40,5 +41,13 @@ public class User {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }
