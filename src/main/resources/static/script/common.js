@@ -3,6 +3,7 @@
  */
 
 var Global_Sever_Url="http://localhost:8080/";
+var SUCCESS_CODE = "0000";
 var Global_Version="1.0";
 
 ////确认提交框

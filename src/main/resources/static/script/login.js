@@ -5,7 +5,7 @@
 /**
  * 登陆
  */
-var SUCCESS_CODE = "0000";
+
 var initMethod = {
     init: function () {
         var _this = this;
