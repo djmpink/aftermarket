@@ -25,12 +25,12 @@ public class RandomTextUtils {
      * main 测试
      * @param args
      */
-    public static void main (String[] args){
-        for (int i = 0; i < 100; i++) {
-            String code= RandomTextUtils.createActivityCode(6);
-            System.out.println(code);
-        }
-    }
+//    public static void main (String[] args){
+//        for (int i = 0; i < 100; i++) {
+//            String code= RandomTextUtils.createActivityCode(6);
+//            System.out.println(code);
+//        }
+//    }
 
 
 }

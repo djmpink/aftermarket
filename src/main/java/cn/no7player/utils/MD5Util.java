@@ -35,8 +35,8 @@ public class MD5Util{
     public static String encode(String origi){
     	return encode(origi,ENCODED);
     }
-    public static void main(String[] args) {
-		System.out.println(MD5Util.encode("123456", "utf-8"));
-	}
+//    public static void main(String[] args) {
+//		System.out.println(MD5Util.encode("123456", "utf-8"));
+//	}
 
 }

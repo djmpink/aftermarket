@@ -396,14 +396,14 @@ public class HttpClientUtil {
             throw e;
         }
     }
-    /**
-     * 测试方法
-     * @param args
-     */
-    public static void main(String[] args) throws Exception {
-        Map<String,Object > map=new HashMap<>();
-        map.put("name","");
-        String res=HttpClientUtil.doGet("https://api.douban.com/v2/book/isbn","9787308083256");
-        System.out.println(res);
-    }
+//    /**
+//     * 测试方法
+//     * @param args
+//     */
+//    public static void main(String[] args) throws Exception {
+//        Map<String,Object > map=new HashMap<>();
+//        map.put("name","");
+//        String res=HttpClientUtil.doGet("https://api.douban.com/v2/book/isbn","9787308083256");
+//        System.out.println(res);
+//    }
 }
