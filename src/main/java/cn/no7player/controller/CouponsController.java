@@ -2,8 +2,11 @@ package cn.no7player.controller;
 
 import cn.no7player.common.ACK;
 import cn.no7player.common.BaseController;
+import cn.no7player.common.bean.PageResult;
 import cn.no7player.common.bean.Result;
+import cn.no7player.common.em.ResultCode;
 import cn.no7player.model.Coupons;
+import cn.no7player.pojo.CouponsReq;
 import cn.no7player.service.ICouponsService;
 import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
@@ -24,7 +27,7 @@ public class CouponsController extends BaseController {
     @Autowired
     private ICouponsService couponsService;
 
-    @RequestMapping(value = "getNewActivityCode",method = {RequestMethod.POST})
+    @RequestMapping(value = "getNewActivityCode", method = {RequestMethod.POST})
     @ResponseBody
     public Result getNewActivityCode() {
         String activityCode = couponsService.getNewActivityCode();
@@ -36,9 +39,9 @@ public class CouponsController extends BaseController {
     }
 
 
-    @RequestMapping(value = "addCouponsBind",method = {RequestMethod.POST})
+    @RequestMapping(value = "addCouponsBind", method = {RequestMethod.POST})
     @ResponseBody
-    public Result addCouponsBind( Coupons coupons) {
+    public Result addCouponsBind(Coupons coupons) {
         System.out.println(JSON.toJSONString(coupons));
         logger.info(JSON.toJSONString(coupons));
         if (coupons == null) {
@@ -50,8 +53,59 @@ public class CouponsController extends BaseController {
         if (coupons.getPhone() == null) {
             return resultError(ACK.PARAM_ERROR, "[参数异常][phone]");
         }
-       couponsService.addCouponsBind(coupons);
+        couponsService.addCouponsBind(coupons);
 
         return resultOK();
+    }
+
+    @RequestMapping(value = "editCoupons", method = {RequestMethod.POST})
+    @ResponseBody
+    public Result editCoupons(Coupons coupons) {
+        logger.info(JSON.toJSONString(coupons));
+        if (coupons == null) {
+            return resultError(ACK.PARAM_ERROR, "[参数异常][coupons]");
+        }
+        if (coupons.getActivityCode() == null) {
+            return resultError(ACK.PARAM_ERROR, "[参数异常][activityCode]");
+        }
+        if (coupons.getPhone() == null) {
+            return resultError(ACK.PARAM_ERROR, "[参数异常][phone]");
+        }
+        if (coupons.getId() == null) {
+            return resultError(ACK.PARAM_ERROR, "[参数异常][id]");
+        }
+        couponsService.editCoupons(coupons);
+
+        return resultOK();
+    }
+
+
+    @RequestMapping(value = "checkCoupons", method = {RequestMethod.POST})
+    @ResponseBody
+    public Result checkCoupons(String activityCode,String phone) {
+
+        logger.info(activityCode);
+        if (activityCode == null) {
+            return resultError(ACK.PARAM_ERROR, "[参数异常][activityCode]");
+        }
+
+        Coupons coupons = couponsService.checkCoupons(activityCode,phone);
+        if (coupons==null){
+            return resultError(ACK.ACTIVITY_CODE_NOT_EXIST,"激活码不存在");
+        }
+        return resultOK(coupons);
+    }
+
+    @RequestMapping(value = "getCouponsList", method = {RequestMethod.POST})
+    @ResponseBody
+    public Result getCouponsList(CouponsReq couponsReq) {
+        logger.info(JSON.toJSONString(couponsReq));
+        if (couponsReq == null) {
+            return resultError(ACK.PARAM_ERROR, "[参数异常][couponsReq]");
+        }
+
+        PageResult<Coupons> data = couponsService.getCouponsList(couponsReq);
+        logger.info(JSON.toJSONString(data));
+        return resultOK(data);
     }
 }

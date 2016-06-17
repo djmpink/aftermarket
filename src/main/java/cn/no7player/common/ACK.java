@@ -149,4 +149,9 @@ public class ACK {
 	 * 重复提交请求
 	 */
 	public static final String REPEAT_SUBMIT= "5001";
+
+	/**
+	 * 重复提交请求
+	 */
+	public static final String ACTIVITY_CODE_NOT_EXIST= "6001";
 }

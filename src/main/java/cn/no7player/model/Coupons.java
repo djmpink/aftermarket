@@ -11,17 +11,17 @@ public class Coupons {
     private String activityCode;
     private String phone;
     private Integer status;
-    private Date createTime;
-    private Date activityTime;
-    private Date usedTime;
-    private Date startTime;
-    private Date endTime;
-    private Date verifyTime;
-    private Date closeTime;
+    private String createTime;
+    private String activityTime;
+    private String usedTime;
+    private String startTime;
+    private String endTime;
+    private String verifyTime;
+    private String closeTime;
     private Integer channel;
     private String name;
     private Integer type;
-    private String desc;
+    private String description;
     private String userName;
     private String purchase;
 
@@ -65,59 +65,59 @@ public class Coupons {
         this.status = status;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Date getActivityTime() {
+    public String getActivityTime() {
         return activityTime;
     }
 
-    public void setActivityTime(Date activityTime) {
+    public void setActivityTime(String activityTime) {
         this.activityTime = activityTime;
     }
 
-    public Date getUsedTime() {
+    public String getUsedTime() {
         return usedTime;
     }
 
-    public void setUsedTime(Date usedTime) {
+    public void setUsedTime(String usedTime) {
         this.usedTime = usedTime;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
-    public Date getVerifyTime() {
+    public String getVerifyTime() {
         return verifyTime;
     }
 
-    public void setVerifyTime(Date verifyTime) {
+    public void setVerifyTime(String verifyTime) {
         this.verifyTime = verifyTime;
     }
 
-    public Date getCloseTime() {
+    public String getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(Date closeTime) {
+    public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
     }
 
@@ -145,12 +145,12 @@ public class Coupons {
         this.type = type;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getUserName() {

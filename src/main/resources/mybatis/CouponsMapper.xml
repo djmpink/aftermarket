@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.no7player.mapper.CouponsMapper">
+    <update id="editCoupons">
+        update coupons
+        <set>
+            <if test="activityCode!=null">
+                activityCode = #{activityCode},
+            </if>
+            <if test="phone!=null">
+                phone = #{phone},
+            </if>
+            <if test="status!=null">
+                status = #{status},
+            </if>
+            <if test="activityTime!=null">
+                activityTime = #{activityTime},
+            </if>
+            <if test="usedTime!=null">
+                usedTime = #{usedTime},
+            </if>
+            <if test="startTime!=null">
+                startTime = #{startTime},
+            </if>
+            <if test="endTime!=null">
+                endTime = #{endTime},
+            </if>
+            <if test="verifyTime!=null">
+                verifyTime = #{verifyTime},
+            </if>
+            <if test="closeTime!=null">
+                closeTime = #{closeTime},
+            </if>
+            <if test="channel!=null">
+                channel = #{channel},
+            </if>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="type!=null">
+                type = #{type},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>
+            <if test="userName!=null">
+                userName = #{userName},
+            </if>
+            <if test="purchase!=null">
+                purchase = #{purchase},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getCouponsByActivityCode" resultType="cn.no7player.model.Coupons">
+        SELECT
+            id,
+            userId,
+            activityCode,
+            phone,
+            status,
+            createTime,
+            activityTime,
+            usedTime,
+            startTime,
+            endTime,
+            verifyTime,
+            closeTime,
+            channel,
+            name,
+            type,
+            description,
+            userName,
+            purchase
+        FROM
+            coupons
+        WHERE
+            activityCode=#{activityCode}
+            AND phone=#{phone}
+            limit 1;
+    </select>
+    <select id="getCouponsListByKeywords" resultType="cn.no7player.model.Coupons">
+        SELECT
+            id,
+            userId,
+            activityCode,
+            phone,
+            STATUS,
+            createTime,
+            activityTime,
+            usedTime,
+            startTime,
+            endTime,
+            verifyTime,
+            closeTime,
+            channel,
+            NAME,
+            type,
+            description,
+            userName,
+            purchase
+        FROM
+            coupons
+        WHERE
+            activityCode LIKE '%${keywords}%'
+            OR phone LIKE '%${keywords}%'
+            OR userName LIKE '%${keywords}%'
+            ORDER BY createTime DESC
+            LIMIT #{start},#{pageSize}
+    </select>
+
+    <select id="getCouponsListByKeywordsTotal" resultType="java.lang.Integer">
+        SELECT
+            COUNT(1) AS total
+        FROM
+            coupons
+        WHERE
+            activityCode LIKE '%${keywords}%'
+            OR phone LIKE '%${keywords}%'
+            OR userName LIKE '%${keywords}%'
+    </select>
+
+    <insert id="addCouponsBind" parameterType="cn.no7player.model.Coupons" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO coupons (
+            userId,
+            activityCode,
+            phone,
+            status,
+            createTime,
+            activityTime,
+            usedTime,
+            startTime,
+            endTime,
+            verifyTime,
+            closeTime,
+            channel,
+            name,
+            type,
+            description,
+            userName,
+            purchase
+        )
+        VALUES
+        (
+            #{userId},
+            #{activityCode},
+            #{phone},
+            #{status},
+            #{createTime},
+            #{activityTime},
+            #{usedTime},
+            #{startTime},
+            #{endTime},
+            #{verifyTime},
+            #{closeTime},
+            #{channel},
+            #{name},
+            #{type},
+            #{description},
+            #{userName},
+            #{purchase}
+        );
+    </insert>
+</mapper>
