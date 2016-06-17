@@ -2,7 +2,7 @@
  * Created by zhouli on 2015/10/26.
  */
 
-var Global_Sever_Url="http://localhost:8080/";
+var Global_Sever_Url="http://121.40.214.161:8080/";
 var SUCCESS_CODE = "0000";
 var Global_Version="1.0";
 
