@@ -86,7 +86,7 @@ public class CouponsController extends BaseController {
             return resultError(ACK.PARAM_ERROR, "[参数异常][activityCode]");
         }
 
-        Coupons coupons = couponsService.checkCoupons(activityCode, phone);
+        Coupons coupons = couponsService.checkCoupons(activityCode.toUpperCase(), phone);
         if (coupons == null) {
             return resultError(ACK.ACTIVITY_CODE_NOT_EXIST, "激活码不存在");
         }
