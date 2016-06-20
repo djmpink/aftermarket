@@ -24,6 +24,7 @@ public class Coupons {
     private String description;
     private String userName;
     private String purchase;
+    private String editTime;
 
     public Integer getId() {
         return id;
@@ -167,5 +168,13 @@ public class Coupons {
 
     public void setPurchase(String purchase) {
         this.purchase = purchase;
+    }
+
+    public String getEditTime() {
+        return editTime;
+    }
+
+    public void setEditTime(String editTime) {
+        this.editTime = editTime;
     }
 }

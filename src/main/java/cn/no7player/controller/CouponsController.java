@@ -65,12 +65,6 @@ public class CouponsController extends BaseController {
         if (coupons == null) {
             return resultError(ACK.PARAM_ERROR, "[参数异常][coupons]");
         }
-        if (coupons.getActivityCode() == null) {
-            return resultError(ACK.PARAM_ERROR, "[参数异常][activityCode]");
-        }
-        if (coupons.getPhone() == null) {
-            return resultError(ACK.PARAM_ERROR, "[参数异常][phone]");
-        }
         if (coupons.getId() == null) {
             return resultError(ACK.PARAM_ERROR, "[参数异常][id]");
         }

@@ -125,10 +125,10 @@
                             <div class="row">
                                 <div class="col-sm-8">
                                     <a id="send_coupons_btn" data-toggle="modal" class="btn btn-outline btn-primary"
-                                       href="#send-coupons">发放优惠券</a>
+                                       href="#send-coupons-modal">发放优惠券</a>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <a id="check_coupons_btn" data-toggle="modal" class="btn btn-outline btn-success"
-                                       href="#verify-coupons">验证优惠券</a>
+                                       href="#verify-coupons-modal">验证优惠券</a>
                                 </div>
                                 <!--搜索-->
                                 <div class="col-sm-4">
@@ -144,12 +144,13 @@
 
 
                             <!--弹出框-->
-                            <div id="send-coupons" class="modal fade" aria-hidden="true">
+                            <div id="send-coupons-modal" class="modal fade" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <div class="row">
                                                 <h3 class="m-t-none m-b">发放验证码</h3>
+                                                <div class="hr-line-dashed"></div>
                                                 <form role="form">
                                                     <div class="form-group">
                                                         <label>验证码</label>
@@ -158,8 +159,27 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>类型</label>
-                                                        <input id="type" type="text" placeholder="类型"
-                                                               class="form-control" required="required">
+                                                        <select class="form-control" id="type">
+                                                            <option value="0">通用券</option>
+                                                            <option value="1">现金券</option>
+                                                            <option value="2">体验券</option>
+                                                            <option value="3">礼品券</option>
+                                                            <option value="4">折扣券</option>
+                                                            <option value="5">特价券</option>
+                                                            <option value="6">换购券</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>渠道</label>
+                                                        <select class="form-control" id="channel">
+                                                            <option value="0">通用</option>
+                                                            <option value="1">饿了么</option>
+                                                            <option value="2">美团</option>
+                                                            <option value="3">大众</option>
+                                                            <option value="4">百度糯米</option>
+                                                            <option value="5">淘点点</option>
+                                                            <option value="6">其他</option>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>用户名</label>
@@ -171,16 +191,6 @@
                                                         <input id="phone" type="text" placeholder="手机号"
                                                                class="form-control" required="required">
                                                     </div>
-                                                    <!--<div class="form-group">-->
-                                                    <!--<label>有效起始期</label>-->
-                                                    <!--<input id="startTime" type="text" placeholder="有效起始期"-->
-                                                    <!--class="form-control">-->
-                                                    <!--</div>-->
-                                                    <!--<div class="form-group">-->
-                                                    <!--<label>有效结束日期</label>-->
-                                                    <!--<input id="endTime" type="text" placeholder="有效结束日期"-->
-                                                    <!--class="form-control">-->
-                                                    <!--</div>-->
                                                     <div class="form-group">
                                                         <label>有效期:</label>
                                                         <div class=" input-daterange input-group"
@@ -200,11 +210,19 @@
                                                                class="form-control" required="required">
                                                     </div>
 
-                                                    <div>
-                                                        <input id="confirm_btn" type="button" name="confirm"
-                                                               class="btn btn-sm btn-primary pull-right m-t-n-xs"
-                                                               value="提交">
+                                                    <div class="hr-line-dashed"></div>
+                                                    <div id="edit_btn_group" class="row btnGroup" style=" text-align:center" >
+                                                        <div class="col-lg-6">
+                                                            <input id="confirm_btn" type="button" name="confirm"
+                                                                   class="btn btn-primary btn-rounded btn-outline"
+                                                                   value="提交">
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <input type="button" name="cancel_btn" class="btn btn-warning btn-rounded btn-outline"
+                                                                   data-dismiss="modal" value="取消">
+                                                        </div>
                                                     </div>
+
                                                 </form>
                                             </div>
                                         </div>
@@ -212,12 +230,13 @@
                                 </div>
                             </div>
                             <!--弹出框-->
-                            <div id="verify-coupons" class="modal fade" aria-hidden="true">
+                            <div id="verify-coupons-modal" class="modal fade" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-body">
                                             <div class="row">
                                                 <h3 class="m-t-none m-b">验证优惠券</h3>
+                                                <div class="hr-line-dashed"></div>
                                                 <div class="form-group">
                                                     <label>验证码</label>
                                                     <input id="verification_info" type="text" placeholder="验证码"
@@ -249,8 +268,27 @@
 
                                                     <div class="form-group">
                                                         <label>类型</label>
-                                                        <input id="type_info" type="text" placeholder="类型"
-                                                               class="form-control" readonly>
+                                                        <select class="form-control" id="type_info" readonly>
+                                                            <option value="0">通用券</option>
+                                                            <option value="1">现金券</option>
+                                                            <option value="2">体验券</option>
+                                                            <option value="3">礼品券</option>
+                                                            <option value="4">折扣券</option>
+                                                            <option value="5">特价券</option>
+                                                            <option value="6">换购券</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>渠道</label>
+                                                        <select class="form-control" id="channel_info" readonly>
+                                                            <option value="0">通用</option>
+                                                            <option value="1">饿了么</option>
+                                                            <option value="2">美团</option>
+                                                            <option value="3">大众</option>
+                                                            <option value="4">百度糯米</option>
+                                                            <option value="5">淘点点</option>
+                                                            <option value="6">其他</option>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>用户名</label>
@@ -274,10 +312,10 @@
                                                                class="form-control" readonly>
                                                     </div>
                                                     <div class="hr-line-dashed"></div>
-                                                    <div id="edit_btn_group" class="row btnGroup" style=" text-align:center" >
+                                                    <div id="info_btn_group" class="row btnGroup" style=" text-align:center" >
                                                         <div class="col-lg-4">
                                                             <input id="close_btn" type="button" name="verify_btn"
-                                                                   class="btn btn-primary btn-rounded btn-outline" value="关闭">
+                                                                   class="btn btn-primary btn-rounded btn-outline" value="废除">
                                                         </div>
                                                         <div class="col-lg-4">
                                                             <input id="use_btn" type="button" name="verify_btn"

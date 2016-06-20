@@ -15,6 +15,7 @@ $(document).ready(function () {
         format: "yyyy-mm-dd"
     });
 
+    initMethod.getCouponsList(1);
 });
 
 
@@ -28,6 +29,11 @@ $("#check_coupons_btn").click(function () {
 
 $("#send_coupons_btn").click(function () {
 
+    $("#send-coupons-modal").find("input[type=text]").val("");
+    $("#send-coupons-modal").find("textarea").val("");
+    $("#send-coupons-modal").find("input[type=checkbox]").val("");
+    $("#send-coupons-modal").find("select").val("");
+
     var url = Global_Sever_Url + "coupons/getNewActivityCode";//请求地址
     var jsonData = commonAjax(url, false, null, null);
     if (jsonData.code == SUCCESS_CODE) {
@@ -38,61 +44,86 @@ $("#send_coupons_btn").click(function () {
 });
 
 $("#confirm_btn").click(function () {
-    var url = Global_Sever_Url + "coupons/addCouponsBind";//请求地址
-    //获取表单值，并以json的数据形式保存到params中
-
-    var params = {
-        activityCode: $("#verification").val(),
-        type: $("#type").val(),
-        userName: $("#userName").val(),
-        phone: $("#phone").val(),
-        startTime: $("#startTime").val(),
-        endTime: $("#endTime").val(),
-        status:1,
-        purchase: $("#purchase").val()
-
-    };
-    var jsonData = commonAjax(url, false, params, null);
-    if (jsonData.code == SUCCESS_CODE) {
-        alert("发放成功");
-    } else {
-        alert("获取失败");
+    if ($("#verification").val() == null || $("#phone").val() == "") {
+        alert("信息填写不完整！");
+        return;
     }
+    if (confirmToSubmit()) {
+        var url = Global_Sever_Url + "coupons/addCouponsBind";//请求地址
+        //获取表单值，并以json的数据形式保存到params中
+
+        var params = {
+            activityCode: $("#verification").val(),
+            type: $("#type").val(),
+            channel: $("#channel").val(),
+            userName: $("#userName").val(),
+            phone: $("#phone").val(),
+            startTime: $("#startTime").val(),
+            endTime: $("#endTime").val(),
+            status: 1,
+            purchase: $("#purchase").val()
+
+        };
+        var jsonData = commonAjax(url, false, params, null);
+        if (jsonData.code == SUCCESS_CODE) {
+            alert("发放成功");
+            $("#send-coupons-modal").modal("hide");
+            initMethod.getCouponsList(1);
+        } else {
+            alert("获取失败");
+        }
+    }
+
 });
 
 $("#use_btn").click(function () {
-    var url = Global_Sever_Url + "coupons/editCoupons";//请求地址
-    //获取表单值，并以json的数据形式保存到params中
-    var id = $("#check_info").attr("identify");
-    var params = {
-        id: id,
-        status: 4
-    };
-    var jsonData = commonAjax(url, false, params, null);
-    if (jsonData.code == SUCCESS_CODE) {
-        alert("使用成功");
-    } else {
-        alert("使用失败");
+
+    if (confirmToSubmit()) {
+        var url = Global_Sever_Url + "coupons/editCoupons";//请求地址
+        //获取表单值，并以json的数据形式保存到params中
+        var id = $("#check_info").attr("identify");
+        var params = {
+            id: id,
+            status: 4
+        };
+        var jsonData = commonAjax(url, false, params, null);
+        if (jsonData.code == SUCCESS_CODE) {
+            alert("使用成功");
+            $("#send-coupons-modal").modal("hide");
+            initMethod.getCouponsList(1);
+        } else {
+            alert("使用失败");
+        }
     }
+
 });
 
 $("#close_btn").click(function () {
-    var url = Global_Sever_Url + "coupons/editCoupons";//请求地址
-    //获取表单值，并以json的数据形式保存到params中
-    var id = $("#check_info").attr("identify");
-    var params = {
-        id: id,
-        status: 5
-    };
-    var jsonData = commonAjax(url, false, params, null);
-    if (jsonData.code == SUCCESS_CODE) {
-        alert("关闭成功");
-    } else {
-        alert("关闭失败");
+    if (confirmToSubmit()) {
+        var url = Global_Sever_Url + "coupons/editCoupons";//请求地址
+        //获取表单值，并以json的数据形式保存到params中
+        var id = $("#check_info").attr("identify");
+        var params = {
+            id: id,
+            status: 5
+        };
+        var jsonData = commonAjax(url, false, params, null);
+        if (jsonData.code == SUCCESS_CODE) {
+            alert("关闭成功");
+            $("#send-coupons-modal").modal("hide");
+            initMethod.getCouponsList(1);
+        } else {
+            alert("关闭失败");
+        }
     }
+
 });
 
 $("#check_btn").click(function () {
+    $("#verify-coupons-modal").find("input[type=text]").val("");
+    $("#verify-coupons-modal").find("textarea").val("");
+    $("#verify-coupons-modal").find("input[type=checkbox]").val("");
+    $("#verify-coupons-modal").find("select").val("");
     var url = Global_Sever_Url + "coupons/checkCoupons";//请求地址
     //获取表单值，并以json的数据形式保存到params中
 
@@ -103,13 +134,25 @@ $("#check_btn").click(function () {
     var jsonData = commonAjax(url, false, params, null);
     if (jsonData.code == SUCCESS_CODE) {
         var data = jsonData.data;
+        var statusStr = "";
+        var status = data.status;
+        if (status == 1) {
+            statusStr = "发放";
+        } else if (status == 4) {
+            statusStr = "已使用";
+        } else if (status == 5) {
+            statusStr = "已废除";
+        } else {
+            statusStr = "未知";
+        }
 
         $("#check_info").attr("identify", data.id);
-        $("#check_info").html("验证成功");
+
+        var htmlStr = "验证成功，状态：" + statusStr;
+        $("#check_info").html(htmlStr);
         $("#coupons_info").show();
-
-
         $("#type_info").val(data.type);
+        $("#channel_info").val(data.channel);
         $("#userName_info").val(data.userName);
         $("#phone_info").val(data.phone);
         $("#startTime_info").val(data.startTime);
@@ -170,6 +213,17 @@ var initMethod = {
                     var optBtn = "";
                     var indexNum = pageSize * (currentPage - 1) + i + 1;
 
+                    var statusStr = "";
+                    if (status == 1) {
+                        statusStr = "发放";
+                    }
+                    if (status == 4) {
+                        statusStr = "已使用";
+                    }
+                    if (status == 5) {
+                        statusStr = "已废除";
+                    }
+
                     str +=
                         '<tr identify="' + id + '">' +
                         '<td><input type="checkbox" value="' + id + '"/></td>' +
@@ -182,7 +236,7 @@ var initMethod = {
                         '<td>' + channel + '</td>' +
                         '<td>' + purchase + '</td>' +
                         '<td>' + createTime + '</td>' +
-                        '<td style="color: #ce8735">' + status + '</td>' +
+                        '<td style="color: #ce8735">' + statusStr + '</td>' +
                         '<td style=" text-align:right" > ' +
                         optBtn +
                             //'<a name="rootEditBtn" class="btn btn-danger btn-rounded" href="#edit-modal-form" data-toggle="modal">修改</a>'+

@@ -1,4 +1,4 @@
-@import url("../../../fonts.googleapis.com/css@family=Open+Sans_3A300,400,600,700&lang=en");
+/*@import url("../../../fonts.googleapis.com/css@family=Open+Sans_3A300,400,600,700&lang=en");*/
 /*
  *
  *   INSPINIA - Responsive Admin Theme
@@ -5949,7 +5949,7 @@ body.rtls.top-navigation .footer.fixed {
 }
 .yellow-skin {
   font-weight: 600;
-  background: url("patterns/header-profile-skin-3.png") repeat scroll 0 100%;
+  /*background: url("patterns/header-profile-skin-3.png") repeat scroll 0 100%;*/
 }
 .yellow-skin:hover {
   background: #ce8735;
@@ -6234,7 +6234,7 @@ body.boxed-layout.skin-3 #wrapper {
 }
 .skin-3 .nav-header {
   background: #ecba52;
-  background: url('patterns/header-profile-skin-3.png');
+  /*background: url('patterns/header-profile-skin-3.png');*/
 }
 .skin-3.mini-navbar .nav-second-level {
   background: #3e2c42;

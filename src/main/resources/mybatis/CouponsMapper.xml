@@ -49,6 +49,9 @@
             <if test="purchase!=null">
                 purchase = #{purchase},
             </if>
+            <if test="editTime!=null">
+                editTime = #{editTime},
+            </if>
         </set>
         where id = #{id}
     </update>
@@ -72,6 +75,7 @@
             type,
             description,
             userName,
+            editTime,
             purchase
         FROM
             coupons
@@ -99,6 +103,7 @@
             type,
             description,
             userName,
+            editTime,
             purchase
         FROM
             coupons
@@ -106,7 +111,7 @@
             activityCode LIKE '%${keywords}%'
             OR phone LIKE '%${keywords}%'
             OR userName LIKE '%${keywords}%'
-            ORDER BY createTime DESC
+            ORDER BY editTime DESC,createTime DESC
             LIMIT #{start},#{pageSize}
     </select>
 
@@ -139,6 +144,7 @@
             type,
             description,
             userName,
+            editTime,
             purchase
         )
         VALUES
@@ -159,6 +165,7 @@
             #{type},
             #{description},
             #{userName},
+            #{editTime},
             #{purchase}
         );
     </insert>

@@ -41,6 +41,7 @@ public class CouponsService implements ICouponsService {
             coupons.setEndTime(DateUtil.getTime(DateUtil.getNowTime(),365));
         }
         coupons.setCreateTime(DateUtil.getNowTime());
+        coupons.setEditTime(DateUtil.getNowTime());
         couponsMapper.addCouponsBind(coupons);
         return null;
     }
@@ -63,6 +64,7 @@ public class CouponsService implements ICouponsService {
                 coupons.setCloseTime(DateUtil.getNowTime());
             }
         }
+        coupons.setEditTime(DateUtil.getNowTime());
         couponsMapper.editCoupons(coupons);
     }
 
