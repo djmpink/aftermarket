@@ -8,9 +8,11 @@ import cn.no7player.service.ICouponsService;
 import cn.no7player.utils.DateUtil;
 import cn.no7player.utils.RandomTextUtils;
 import com.alibaba.fastjson.JSON;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -19,6 +21,7 @@ import java.util.List;
 
 @Service
 public class CouponsService implements ICouponsService {
+    private static Logger logger = Logger.getLogger(CouponsService.class);
 
     @Autowired
     private CouponsMapper couponsMapper;
@@ -71,6 +74,17 @@ public class CouponsService implements ICouponsService {
     @Override
     public Coupons checkCoupons(String activityCode,String phone) {
         Coupons coupons =couponsMapper.getCouponsByActivityCode(activityCode,phone);
+        String startDate = coupons.getStartTime();
+        String endDate = coupons.getEndTime();
+        int startDelta = DateUtil.getTimeDelta(startDate);
+        int endDelta = DateUtil.getTimeDelta(endDate);
+
+        if (endDelta > 0) {
+            coupons.setStatus(6);//超期了
+        }
+        if (startDelta < 0) {
+            coupons.setStatus(7);//未生效
+        }
         return coupons;
     }
 
@@ -78,6 +92,26 @@ public class CouponsService implements ICouponsService {
     public PageResult<Coupons> getCouponsList(CouponsReq couponsReq) {
         int total = couponsMapper.getCouponsListByKeywordsTotal(couponsReq);
         List<Coupons> list = couponsMapper.getCouponsListByKeywords(couponsReq);
+        for (Coupons coupons : list) {
+            String startDate = coupons.getStartTime();
+            String endDate = coupons.getEndTime();
+            try {
+                logger.info(DateUtil.parseDate(startDate).getTime());
+                logger.info(DateUtil.parseDate(DateUtil.getNowTime()).getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int startDelta = DateUtil.getTimeDelta(startDate,"yyyy-MM-dd HH:mm:ss.SSS");
+            int endDelta = DateUtil.getTimeDelta(endDate,"yyyy-MM-dd HH:mm:ss.SSS");
+            logger.info(startDelta);
+            logger.info(endDelta);
+            if (endDelta > 0) {
+                coupons.setStatus(6);//超期了
+            }
+            if (startDelta < 0) {
+                coupons.setStatus(7);//未生效
+            }
+        }
         return new PageResult<>(list,total , couponsReq.getCurrentPage(), couponsReq.getPageSize());
     }
 }

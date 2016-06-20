@@ -114,9 +114,9 @@
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
-                                <a class="close-link">
-                                    <i class="fa fa-times"></i>
-                                </a>
+                                <!--<a class="close-link">-->
+                                <!--<i class="fa fa-times"></i>-->
+                                <!--</a>-->
                             </div>
                         </div>
                         <!--功能按钮 编辑购入信息-->
@@ -135,7 +135,7 @@
                                     <div class="input-group has-warning">
                                         <input id="keywords" type="text" class="form-control" placeholder="验证码/手机号/用户名">
                                         <span class="input-group-btn">
-                                            <a id="search_btn"  class="btn btn-warning">查&nbsp询
+                                            <a id="search_btn" class="btn btn-warning">查&nbsp询
                                             </a>
                                         </span>
                                     </div>
@@ -211,14 +211,16 @@
                                                     </div>
 
                                                     <div class="hr-line-dashed"></div>
-                                                    <div id="edit_btn_group" class="row btnGroup" style=" text-align:center" >
+                                                    <div id="edit_btn_group" class="row btnGroup"
+                                                         style=" text-align:center">
                                                         <div class="col-lg-6">
                                                             <input id="confirm_btn" type="button" name="confirm"
                                                                    class="btn btn-primary btn-rounded btn-outline"
                                                                    value="提交">
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <input type="button" name="cancel_btn" class="btn btn-warning btn-rounded btn-outline"
+                                                            <input type="button" name="cancel_btn"
+                                                                   class="btn btn-warning btn-rounded btn-outline"
                                                                    data-dismiss="modal" value="取消">
                                                         </div>
                                                     </div>
@@ -248,12 +250,14 @@
                                                            class="form-control">
                                                 </div>
 
-                                                <div id="check_btn_group" class="row btnGroup" style=" text-align:center" >
+                                                <div id="check_btn_group" class="row btnGroup"
+                                                     style=" text-align:center">
                                                     <div class="col-lg-4">
                                                     </div>
                                                     <div class="col-lg-4">
                                                         <input id="check_btn" type="button" name="verify_btn"
-                                                               class="btn btn-success btn-rounded btn-outline" value="验证">
+                                                               class="btn btn-success btn-rounded btn-outline"
+                                                               value="验证">
                                                     </div>
                                                     <div class="col-lg-4">
                                                     </div>
@@ -268,7 +272,7 @@
 
                                                     <div class="form-group">
                                                         <label>类型</label>
-                                                        <select class="form-control" id="type_info" readonly>
+                                                        <select class="form-control" id="type_info" readonly disabled>
                                                             <option value="0">通用券</option>
                                                             <option value="1">现金券</option>
                                                             <option value="2">体验券</option>
@@ -280,7 +284,8 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>渠道</label>
-                                                        <select class="form-control" id="channel_info" readonly>
+                                                        <select class="form-control" id="channel_info" readonly
+                                                                disabled>
                                                             <option value="0">通用</option>
                                                             <option value="1">饿了么</option>
                                                             <option value="2">美团</option>
@@ -297,8 +302,13 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label>有效期</label>
-                                                        <input id="worthTime_info" type="text" placeholder="有效期"
+                                                        <label>起始时间</label>
+                                                        <input id="startTime_info" type="text" placeholder="起始时间"
+                                                               class="form-control" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>截止时间</label>
+                                                        <input id="endTime_info" type="text" placeholder="截止时间"
                                                                class="form-control" readonly>
                                                     </div>
                                                     <div class="form-group">
@@ -308,21 +318,25 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>状态</label>
-                                                        <input id="state_info" type="text" placeholder="状态"
+                                                        <input id="status_info" type="text" placeholder="状态"
                                                                class="form-control" readonly>
                                                     </div>
                                                     <div class="hr-line-dashed"></div>
-                                                    <div id="info_btn_group" class="row btnGroup" style=" text-align:center" >
+                                                    <div id="info_btn_group" class="row btnGroup"
+                                                         style=" text-align:center">
                                                         <div class="col-lg-4">
                                                             <input id="close_btn" type="button" name="verify_btn"
-                                                                   class="btn btn-primary btn-rounded btn-outline" value="废除">
+                                                                   class="btn btn-primary btn-rounded btn-outline"
+                                                                   value="废除">
                                                         </div>
                                                         <div class="col-lg-4">
                                                             <input id="use_btn" type="button" name="verify_btn"
-                                                                   class="btn btn-primary btn-rounded btn-outline" value="使用">
+                                                                   class="btn btn-primary btn-rounded btn-outline"
+                                                                   value="使用">
                                                         </div>
                                                         <div class="col-lg-4">
-                                                            <input type="button" name="cancel_btn" class="btn btn-warning btn-rounded btn-outline"
+                                                            <input type="button" name="cancel_btn"
+                                                                   class="btn btn-warning btn-rounded btn-outline"
                                                                    data-dismiss="modal" value="取消">
                                                         </div>
                                                     </div>
@@ -352,6 +366,8 @@
                             <th>渠道</th>
                             <th>面值</th>
                             <th>创建时间</th>
+                            <th>起始时间</th>
+                            <th>结束时间</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>

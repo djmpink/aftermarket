@@ -8,6 +8,7 @@ import cn.no7player.common.em.ResultCode;
 import cn.no7player.model.Coupons;
 import cn.no7player.pojo.CouponsReq;
 import cn.no7player.service.ICouponsService;
+import cn.no7player.utils.DateUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 
 /**
  * Created by zhouli on 2016/6/16.
@@ -76,17 +79,18 @@ public class CouponsController extends BaseController {
 
     @RequestMapping(value = "checkCoupons", method = {RequestMethod.POST})
     @ResponseBody
-    public Result checkCoupons(String activityCode,String phone) {
+    public Result checkCoupons(String activityCode, String phone) {
 
         logger.info(activityCode);
         if (activityCode == null) {
             return resultError(ACK.PARAM_ERROR, "[参数异常][activityCode]");
         }
 
-        Coupons coupons = couponsService.checkCoupons(activityCode,phone);
-        if (coupons==null){
-            return resultError(ACK.ACTIVITY_CODE_NOT_EXIST,"激活码不存在");
+        Coupons coupons = couponsService.checkCoupons(activityCode, phone);
+        if (coupons == null) {
+            return resultError(ACK.ACTIVITY_CODE_NOT_EXIST, "激活码不存在");
         }
+
         return resultOK(coupons);
     }
 

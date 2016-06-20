@@ -20,8 +20,11 @@ $(document).ready(function () {
 
 
 $("#check_coupons_btn").click(function () {
+    $("#verify-coupons-modal").find("input[type=text]").val("");
+    $("#verify-coupons-modal").find("textarea").val("");
+    $("#verify-coupons-modal").find("input[type=checkbox]").val("");
+    $("#verify-coupons-modal").find("select").val("");
     $("#coupons_info").hide();
-    $("#coupons_info").find("input[type=text]").val("");
     $("#check_info").html("");
 
 });
@@ -120,10 +123,7 @@ $("#close_btn").click(function () {
 });
 
 $("#check_btn").click(function () {
-    $("#verify-coupons-modal").find("input[type=text]").val("");
-    $("#verify-coupons-modal").find("textarea").val("");
-    $("#verify-coupons-modal").find("input[type=checkbox]").val("");
-    $("#verify-coupons-modal").find("select").val("");
+
     var url = Global_Sever_Url + "coupons/checkCoupons";//请求地址
     //获取表单值，并以json的数据形式保存到params中
 
@@ -142,6 +142,10 @@ $("#check_btn").click(function () {
             statusStr = "已使用";
         } else if (status == 5) {
             statusStr = "已废除";
+        } else if (status == 6) {
+            statusStr = "已超期";
+        } else if (status == 7) {
+            statusStr = "未生效";
         } else {
             statusStr = "未知";
         }
@@ -158,6 +162,7 @@ $("#check_btn").click(function () {
         $("#startTime_info").val(data.startTime);
         $("#endTime_info").val(data.endTime);
         $("#purchase_info").val(data.purchase);
+        $("#status_info").val(data.status);
     } else {
         alert("验证失败");
         $('#check_info$').html("验证失败");
@@ -209,6 +214,8 @@ var initMethod = {
                     var channel = list[i].channel;
                     var purchase = list[i].purchase;
                     var createTime = list[i].createTime;
+                    var startTime = list[i].startTime;
+                    var endTime = list[i].endTime;
                     var status = list[i].status;
                     var optBtn = "";
                     var indexNum = pageSize * (currentPage - 1) + i + 1;
@@ -223,6 +230,58 @@ var initMethod = {
                     if (status == 5) {
                         statusStr = "已废除";
                     }
+                    if (status == 6) {
+                        statusStr = "已超期";
+                    }
+                    if (status == 7) {
+                        statusStr = "未生效";
+                    }
+
+
+                    var typeStr = "";
+                    if (type == 0) {
+                        typeStr = "通用券";
+                    }
+                    if (type == 1) {
+                        typeStr = "现金券";
+                    }
+                    if (type == 2) {
+                        typeStr = "体验券";
+                    }
+                    if (type == 3) {
+                        typeStr = "礼品券";
+                    }
+                    if (type == 4) {
+                        typeStr = "折扣券";
+                    }
+                    if (type == 5) {
+                        typeStr = "特价券";
+                    }
+                    if (type == 6) {
+                        typeStr = "换购券";
+                    }
+                    var channelStr = "";
+                    if (channel == 0) {
+                        channelStr = "通用";
+                    }
+                    if (channel == 1) {
+                        channelStr = "饿了么";
+                    }
+                    if (channel == 2) {
+                        channelStr = "美团";
+                    }
+                    if (channel == 3) {
+                        channelStr = "大众";
+                    }
+                    if (channel == 4) {
+                        channelStr = "百度糯米";
+                    }
+                    if (channel == 5) {
+                        channelStr = "淘点点";
+                    }
+                    if (channel == 6) {
+                        channelStr = "其他";
+                    }
 
                     str +=
                         '<tr identify="' + id + '">' +
@@ -232,10 +291,12 @@ var initMethod = {
                         '<td>' + userName + '</td>' +
                         '<td style="color: #ce8735">' + activityCode + '</td>' +
                         '<td style="color: #ce8735">' + phone + '</td>' +
-                        '<td>' + type + '</td>' +
-                        '<td>' + channel + '</td>' +
+                        '<td>' + typeStr + '</td>' +
+                        '<td>' + channelStr + '</td>' +
                         '<td>' + purchase + '</td>' +
                         '<td>' + createTime + '</td>' +
+                        '<td>' + startTime + '</td>' +
+                        '<td>' + endTime + '</td>' +
                         '<td style="color: #ce8735">' + statusStr + '</td>' +
                         '<td style=" text-align:right" > ' +
                         optBtn +
