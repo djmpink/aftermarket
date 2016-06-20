@@ -15,10 +15,12 @@ $(document).ready(function () {
         format: "yyyy-mm-dd"
     });
 
+    //初始化获取优惠券列表
     initMethod.getCouponsList(1);
 });
 
 
+//验证优惠券，初始化弹框
 $("#check_coupons_btn").click(function () {
     $("#verify-coupons-modal").find("input[type=text]").val("");
     $("#verify-coupons-modal").find("textarea").val("");
@@ -26,10 +28,9 @@ $("#check_coupons_btn").click(function () {
     $("#verify-coupons-modal").find("select").val("");
     $("#coupons_info").hide();
     $("#check_info").html("");
-
 });
 
-
+//发放优惠券，获取优惠码
 $("#send_coupons_btn").click(function () {
 
     $("#send-coupons-modal").find("input[type=text]").val("");
@@ -46,11 +47,19 @@ $("#send_coupons_btn").click(function () {
     }
 });
 
+//确认发放优惠券
 $("#confirm_btn").click(function () {
     if ($("#verification").val() == null || $("#phone").val() == "") {
         alert("信息填写不完整！");
         return;
     }
+
+    var phone = $("#phone");
+    if(!$("#phone").val().match(/^(\d{3})(\-)?(\d{8})$/)){
+        alert("手机格式不正确！");
+        return;
+    }
+
     if (confirmToSubmit()) {
         var url = Global_Sever_Url + "coupons/addCouponsBind";//请求地址
         //获取表单值，并以json的数据形式保存到params中
@@ -63,6 +72,7 @@ $("#confirm_btn").click(function () {
             phone: $("#phone").val(),
             startTime: $("#startTime").val(),
             endTime: $("#endTime").val(),
+            description: $("#description").val(),
             status: 1,
             purchase: $("#purchase").val()
 
@@ -79,6 +89,7 @@ $("#confirm_btn").click(function () {
 
 });
 
+//使用优惠券
 $("#use_btn").click(function () {
 
     if (confirmToSubmit()) {
@@ -98,9 +109,9 @@ $("#use_btn").click(function () {
             alert("使用失败");
         }
     }
-
 });
 
+//关闭优惠券
 $("#close_btn").click(function () {
     if (confirmToSubmit()) {
         var url = Global_Sever_Url + "coupons/editCoupons";//请求地址
@@ -122,6 +133,7 @@ $("#close_btn").click(function () {
 
 });
 
+//验证优惠券
 $("#check_btn").click(function () {
 
     var url = Global_Sever_Url + "coupons/checkCoupons";//请求地址
@@ -163,17 +175,20 @@ $("#check_btn").click(function () {
         $("#endTime_info").val(data.endTime);
         $("#purchase_info").val(data.purchase);
         $("#status_info").val(data.status);
+        $("#description_info").val(data.description);
     } else {
-        alert("验证失败");
-        $('#check_info$').html("验证失败");
+        alert("验证失败，优惠券不存在或有误");
+        $('#check_info$').html("验证失败，优惠券不存在或有误");
     }
 });
 
+//搜索
 $("#search_btn").click(
     function () {
         initMethod.getCouponsList(1);
     }
 );
+
 
 var initMethod = {
     /*数据与变量*/
@@ -184,6 +199,7 @@ var initMethod = {
         endTime: null
     },
 
+    //获取优惠券历史列表
     getCouponsList: function (curPage) {
         var _this = this;
 
@@ -335,7 +351,6 @@ var initMethod = {
         //        return;
         //    }
         //});
-
 
     }
 };

@@ -34,14 +34,14 @@ public class CouponsService implements ICouponsService {
     @Override
     public Coupons addCouponsBind(Coupons coupons) {
 
-        if (coupons.getPurchase()==null){
+        if (coupons.getPurchase() == null||"".equals(coupons.getPurchase())) {
             coupons.setPurchase("0");
         }
-        if (coupons.getStartTime()==null){
+        if (coupons.getStartTime() == null||"".equals(coupons.getStartTime())) {
             coupons.setStartTime(DateUtil.getNowTime());
         }
-        if (coupons.getEndTime()==null){
-            coupons.setEndTime(DateUtil.getTime(DateUtil.getNowTime(),365));
+        if (coupons.getEndTime() == null||"".equals(coupons.getEndTime())) {
+            coupons.setEndTime(DateUtil.getTime(DateUtil.getNowTime(), 365));
         }
         coupons.setCreateTime(DateUtil.getNowTime());
         coupons.setEditTime(DateUtil.getNowTime());
@@ -51,19 +51,19 @@ public class CouponsService implements ICouponsService {
 
     @Override
     public void editCoupons(Coupons coupons) {
-        if (coupons==null){
+        if (coupons == null) {
             return;
         }
-        if (coupons.getId()==null){
+        if (coupons.getId() == null) {
             return;
         }
 
-        if (coupons.getStatus()!=null){
-            int status=coupons.getStatus();
-            if (status==4){
+        if (coupons.getStatus() != null) {
+            int status = coupons.getStatus();
+            if (status == 4) {
                 coupons.setUsedTime(DateUtil.getNowTime());
             }
-            if (status==5){
+            if (status == 5) {
                 coupons.setCloseTime(DateUtil.getNowTime());
             }
         }
@@ -72,17 +72,17 @@ public class CouponsService implements ICouponsService {
     }
 
     @Override
-    public Coupons checkCoupons(String activityCode,String phone) {
-        Coupons coupons =couponsMapper.getCouponsByActivityCode(activityCode,phone);
+    public Coupons checkCoupons(String activityCode, String phone) {
+        Coupons coupons = couponsMapper.getCouponsByActivityCode(activityCode, phone);
         String startDate = coupons.getStartTime();
         String endDate = coupons.getEndTime();
         int startDelta = DateUtil.getTimeDelta(startDate);
         int endDelta = DateUtil.getTimeDelta(endDate);
 
-        if (endDelta > 0) {
+        if (coupons.getStatus() == 1 && endDelta > 0) {
             coupons.setStatus(6);//超期了
         }
-        if (startDelta < 0) {
+        if (coupons.getStatus() == 1 && startDelta < 0) {
             coupons.setStatus(7);//未生效
         }
         return coupons;
@@ -95,23 +95,17 @@ public class CouponsService implements ICouponsService {
         for (Coupons coupons : list) {
             String startDate = coupons.getStartTime();
             String endDate = coupons.getEndTime();
-            try {
-                logger.info(DateUtil.parseDate(startDate).getTime());
-                logger.info(DateUtil.parseDate(DateUtil.getNowTime()).getTime());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            int startDelta = DateUtil.getTimeDelta(startDate,"yyyy-MM-dd HH:mm:ss.SSS");
-            int endDelta = DateUtil.getTimeDelta(endDate,"yyyy-MM-dd HH:mm:ss.SSS");
-            logger.info(startDelta);
-            logger.info(endDelta);
-            if (endDelta > 0) {
+
+            int startDelta = DateUtil.getTimeDelta(startDate, "yyyy-MM-dd HH:mm:ss.SSS");
+            int endDelta = DateUtil.getTimeDelta(endDate, "yyyy-MM-dd HH:mm:ss.SSS");
+
+            if (coupons.getStatus() == 1 && endDelta > 0) {
                 coupons.setStatus(6);//超期了
             }
-            if (startDelta < 0) {
+            if (coupons.getStatus() == 1 && startDelta < 0) {
                 coupons.setStatus(7);//未生效
             }
         }
-        return new PageResult<>(list,total , couponsReq.getCurrentPage(), couponsReq.getPageSize());
+        return new PageResult<>(list, total, couponsReq.getCurrentPage(), couponsReq.getPageSize());
     }
 }

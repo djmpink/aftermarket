@@ -160,7 +160,7 @@
                                                     <div class="form-group">
                                                         <label>类型</label>
                                                         <select class="form-control" id="type">
-                                                            <option value="0">通用券</option>
+                                                            <option value="0" selected="selected">通用券</option>
                                                             <option value="1">现金券</option>
                                                             <option value="2">体验券</option>
                                                             <option value="3">礼品券</option>
@@ -172,7 +172,7 @@
                                                     <div class="form-group">
                                                         <label>渠道</label>
                                                         <select class="form-control" id="channel">
-                                                            <option value="0">通用</option>
+                                                            <option value="0" selected="selected">通用</option>
                                                             <option value="1">饿了么</option>
                                                             <option value="2">美团</option>
                                                             <option value="3">大众</option>
@@ -209,7 +209,11 @@
                                                         <input id="purchase" type="text" placeholder="面值"
                                                                class="form-control" required="required">
                                                     </div>
-
+                                                    <div class="form-group">
+                                                        <label>备注/描述</label>
+                                                        <input id="description" type="text" placeholder="备注/描述"
+                                                               class="form-control" required="required">
+                                                    </div>
                                                     <div class="hr-line-dashed"></div>
                                                     <div id="edit_btn_group" class="row btnGroup"
                                                          style=" text-align:center">
@@ -315,6 +319,11 @@
                                                         <label>面值</label>
                                                         <input id="purchase_info" type="text" placeholder="面值"
                                                                class="form-control" readonly>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>备注/描述</label>
+                                                        <input id="description_info" type="text" placeholder="备注/描述"
+                                                               class="form-control" required="required">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>状态</label>
